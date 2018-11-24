@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0d3fc23eb062df6bd9fec589439c36303b619b56daf4b69830c5a470e220d7f7"
+            "sha256": "137460c8642ea17dd4c09124cb1835074c9f8fdcd5aaf63b8d3dffd63e2e0765"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -178,6 +178,13 @@
                 "sha256:da5b5dda4aa0d5e2b758cc8dfc67f8d4212e88ea9caad5f61ba132f948bab859"
             ],
             "version": "==2.4.2"
+        },
+        "dj-static": {
+            "hashes": [
+                "sha256:032ec1c532617922e6e3e956d504a6fb1acce4fc1c7c94612d0fda21828ce8ef"
+            ],
+            "index": "pypi",
+            "version": "==0.0.6"
         },
         "django": {
             "hashes": [
@@ -463,6 +470,12 @@
                 "sha256:832dc0e10feb1aa2c68dcc57dbb658f1c7e65b9b61af69048abc87a2db00a0eb"
             ],
             "version": "==1.11.0"
+        },
+        "static3": {
+            "hashes": [
+                "sha256:674641c64bc75507af2eb20bef7e7e3593dca993dec6674be108fa15b42f47c8"
+            ],
+            "version": "==0.7.0"
         },
         "uritemplate": {
             "hashes": [
