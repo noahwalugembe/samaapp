@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+
+[packages]
+django = "*"
+djangorestframework = "*"
+django-filter = "*"
+django-rest-swagger = "*"
+ansible = "*"
+django-model-utils = "*"
+django-cors-headers = "*"
+djangorestframework-simplejwt = "*"
+"psycopg2" = "*"
+celery = "*"
+sendgrid = "*"
+whitenoise = "*"
+gunicorn = "*"
+
+[requires]
+python_version = "3.7"
