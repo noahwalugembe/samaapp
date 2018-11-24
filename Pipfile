@@ -20,6 +20,7 @@ sendgrid = "*"
 whitenoise = "*"
 gunicorn = "*"
 dj-static = "*"
+simplejson = "*"
 
 [requires]
 python_version = "3.7"
