@@ -61,7 +61,7 @@ class FileuploadListAPIView(ListAPIView):
     
     def get(self, request, *args, **kwargs):
 	    #('C:/Users/NOAH1/Documents/samaapp/api/views/Book1.csv' )
-        with open('https://samaapp.herokuapp.com/api/views/Book1.csv' ) as csvfile:
+        with open('C:/Users/NOAH1/Documents/samaapp/api/views/Book1.csv' ) as csvfile:
             reader = csv.DictReader(csvfile)
             
             for row in reader:  
