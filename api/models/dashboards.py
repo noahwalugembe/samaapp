@@ -4,6 +4,7 @@ from django.db import models
 from model_utils.models import TimeStampedModel
 
 
+
 #from api.models.users import User
 
 
@@ -22,6 +23,6 @@ class Dashboard(TimeStampedModel):
     female_students	= models.CharField(max_length=50,null=True)
     male_students= models.CharField(max_length=50,null=True)	
     number_of_students	= models.CharField(max_length=50,null=True)
-    number_of_teachers= models.IntegerField(max_length=50,null=True)	
+    number_of_teachers= models.CharField(max_length=50,null=True)	
     location= models.CharField(max_length=50, null=True)	
     date_school_enrolled= models.DateField(null=True)
