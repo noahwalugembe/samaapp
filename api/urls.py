@@ -29,7 +29,7 @@ urlpatterns = [
     path('', include(router.urls)),
 	path('o_level_vs_alevel_and_oleve/',OlevelVsAlevelAndOlevelListAPIView.as_view(), name='o_level_vs_alevel_and_oleve'),
 	#path('level_of_tution/',level_Of_TutionlListAPIView.as_view(), name='level_of_tution'),
-	#path('size_of_schools/',Size_Of_SchoolsListAPIView.as_view(), name='size_of_schools'),
+	path('size_of_schools/',Size_Of_SchoolsListAPIView.as_view(), name='size_of_schools'),
 	path('teacher_to_student_ratio/',Teacher_To_Student_RatioListAPIView.as_view(), name='teacher_to_student_ratio'),
 	path('enrolled_schools/',Number_Of_EnroledSchoolsListAPIView.as_view(), name='enrolled_schools'),
 	path('most_and_least_partner_schools/',Most_And_Least_Partner_SchoolsListAPIView.as_view(), name='most_and_least_partner_schools'),
