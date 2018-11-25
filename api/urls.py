@@ -33,5 +33,5 @@ urlpatterns = [
 	path('teacher_to_student_ratio/',Teacher_To_Student_RatioListAPIView.as_view(), name='teacher_to_student_ratio'),
 	path('enrolled_schools/',Number_Of_EnroledSchoolsListAPIView.as_view(), name='enrolled_schools'),
 	path('most_and_least_partner_schools/',Most_And_Least_Partner_SchoolsListAPIView.as_view(), name='most_and_least_partner_schools'),
-	path('fileuploads/',FileuploadListAPIView.as_view(), name='fileuploads'),
+	#path('fileuploads/',FileuploadListAPIView.as_view(), name='fileuploads'),
 ]
