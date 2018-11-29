@@ -32,9 +32,82 @@ class level_Of_TutionlListAPIView(ListAPIView):
         queryset_results = queryset
         
     def get(self, request, *args, **kwargs): 
-        queryset = Dashboard.objects.all().only("boarding_fee_S3", "day_fee_S3","boarding_fee_S5")
         
-        return HttpResponse(queryset)
+        
+        cursor_boarding_fee_S3 = connection.cursor()
+        cursor_boarding_fee_S3_avg = connection.cursor()
+        
+        cursor_day_fee_S3 = connection.cursor()
+        cursor_day_fee_S3_avg = connection.cursor()     
+        
+        cursor_boarding_fee_S5 = connection.cursor()
+        cursor_boarding_fee_S5_avg = connection.cursor()
+    
+        cursor_day_fee_S5 = connection.cursor()
+        cursor_day_fee_S5_avg = connection.cursor()                
+        
+        cursor_boarding_fee_S3.execute("SELECT  name,boarding_fee_S3 FROM api_dashboard")
+        cursor_boarding_fee_S3_avg.execute("SELECT  AVG(boarding_fee_S3) FROM api_dashboard")
+        
+        cursor_day_fee_S3.execute("SELECT  name,day_fee_S3 FROM api_dashboard")
+        cursor_day_fee_S3_avg.execute("SELECT  AVG(day_fee_S3) FROM api_dashboard") 
+        
+        cursor_boarding_fee_S5.execute("SELECT  name,boarding_fee_S5 FROM api_dashboard")
+        cursor_boarding_fee_S5_avg.execute("SELECT  AVG(boarding_fee_S5) FROM api_dashboard")
+    
+        cursor_day_fee_S5.execute("SELECT  name,day_fee_S5 FROM api_dashboard")
+        cursor_day_fee_S5_avg.execute("SELECT AVG(day_fee_S5) FROM api_dashboard")  
+        
+        boarding_fee_S3 = cursor_boarding_fee_S3.fetchall() 
+        boarding_fee_S3_json_data = json.dumps(boarding_fee_S3)  
+        
+        boarding_fee_S3_avg = cursor_boarding_fee_S3_avg.fetchall()
+        boarding_fee_S3_avg_json_data = json.dumps(boarding_fee_S3_avg)  
+        
+        day_fee_S3 = cursor_day_fee_S3.fetchall()
+        day_fee_S3_json_data = json.dumps(day_fee_S3)  
+        
+        day_fee_S3_avg = cursor_day_fee_S3_avg.fetchall()
+        day_fee_S3_avg_json_data = json.dumps(day_fee_S3_avg)  
+        
+        boarding_fee_S5 = cursor_boarding_fee_S5.fetchall()
+        boarding_fee_S5_json_data = json.dumps(boarding_fee_S5)  
+        
+        boarding_fee_S5_avg = cursor_boarding_fee_S5_avg.fetchall()
+        boarding_fee_S5_avg_json_data = json.dumps(boarding_fee_S5_avg)  
+    
+        day_fee_S5 = cursor_day_fee_S5.fetchall()
+        day_fee_S5_json_data = json.dumps(day_fee_S5)  
+        
+        day_fee_S5_avg = cursor_day_fee_S5_avg.fetchall()
+        day_fee_S5_avg_json_data = json.dumps(day_fee_S5_avg )  
+        
+        data = {}
+        data['boarding_fee_S3'] = boarding_fee_S3_json_data 
+        data['boarding_fee_S3_avg'] =  boarding_fee_S3_avg_json_data
+        
+        data['day_fee_S3'] = day_fee_S3_json_data
+        data['day_fee_S3_avg'] =  day_fee_S3_avg_json_data
+       
+        data['boarding_fee_S5'] =boarding_fee_S5_json_data 
+        data['boarding_fee_S5_avg'] =  boarding_fee_S5_avg_json_data
+
+        data['day_fee_S5'] = day_fee_S5_json_data
+        data['day_fee_S5_avg'] =  day_fee_S5_avg_json_data       
+        
+        
+        
+        json_data = json.dumps(data)          
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        return HttpResponse(json_data)
     
    
     
