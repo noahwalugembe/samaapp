@@ -20,6 +20,7 @@ from django.db.models import Q
 from django.db import connection
 
 from datetime import datetime
+import json
 
 
 	
@@ -81,42 +82,17 @@ class OlevelVsAlevelAndOlevelListAPIView(ListAPIView):
         olevel_students=Dashboard.objects.filter(olevel_students='1').count()
         alevel_students=Dashboard.objects.filter(alevel_students='1',olevel_students='1').count()
     
-        q = Dashboard.objects.annotate(num_authors=Count('olevel_students'))        
-        return HttpResponse(olevel_students/alevel_students)
+        data = {}
+        data['olevel_students'] = olevel_students
+        data['olevel_students_and_alevel_students'] =  alevel_students
+        json_data = json.dumps(data)              
+        
+         
+        
+        return HttpResponse(json_data)
     
     
-class Teacher_To_Student_RatioListAPIView(ListAPIView):
-    permission_classes = (IsAuthenticated,)
-    serializer_class = DashboardSerializer
-    #queryset = Dashboard.objects.all()
-    
-    queryset =Dashboard.objects.filter(olevel_students='1')
-    def get_queryset(self):
-        olevel_students=Dashboard.objects.filter(olevel_students='1')
-       
-    def get(self, request, *args, **kwargs):
-        xnumber_of_students=Dashboard.objects.filter(number_of_students='1').count()
-        xnumber_of_teachers=Dashboard.objects.filter(number_of_teachers='1').count()
-        
-        cursor = connection.cursor()
-        cursor_teachers = connection.cursor()
-        cursor_students = connection.cursor()
-        
-        cursor_teachers.execute("SELECT  SUM(number_of_teachers) FROM api_dashboard")
-        
-        cursor_students.execute("SELECT  SUM(number_of_students) FROM api_dashboard")
-        
-        row_teachers = cursor_teachers.fetchall()  
-        row_students = cursor_students.fetchall() 
-        
-        t=row_teachers.pop(0)
-        s=row_students.pop(0)
-        
-        num_teachers = int(t[0])
-        num_students = int(s[0])
-        ratio=num_teachers/num_students
-       
-        return HttpResponse(ratio)
+
        
         
 
@@ -140,9 +116,12 @@ class Number_Of_EnroledSchoolsListAPIView(ListAPIView):
         
         s=school_number.pop(0)
     
+        data = {}
+        data['schools'] = s
+        
+        json_data = json.dumps(data)       
              
-             
-        return HttpResponse(s)    
+        return HttpResponse(json_data)    
     
     
 class Most_And_Least_Partner_SchoolsListAPIView(ListAPIView):
@@ -166,12 +145,18 @@ class Most_And_Least_Partner_SchoolsListAPIView(ListAPIView):
         schools_min = cursor_min.fetchall()
         schools_max = cursor_max.fetchall() 
         
-        schools_min.append("min")
-        schools_max.append("max")
+        #schools_min.append("min")
+        #schools_max.append("max")
         
-              
+        jsonObjmin = json.dumps(schools_min)
+        jsonObjmax = json.dumps(schools_max) 
+        
+        data = {}
+        data['least'] =  schools_min
+        data['most'] =  schools_max
+        json_data = json.dumps(data)          
     
-        return HttpResponse(schools_min+schools_max)  
+        return HttpResponse(json_data)  
     
 class Size_Of_SchoolsListAPIView(ListAPIView):
     permission_classes = (IsAuthenticated,)
@@ -211,8 +196,45 @@ class Size_Of_SchoolsListAPIView(ListAPIView):
         tuple_new = [(x, float(y) * 100 /total) for x, y in tuple1]
         
         #tuple_new        
+        jsonObj = json.dumps(tuple_new) 
              
-             
-        return HttpResponse(tuple_new)   
+        return HttpResponse(jsonObj)   
 
+class Teacher_To_Student_RatioListAPIView(ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = DashboardSerializer
+    #queryset = Dashboard.objects.all()
+
+    queryset =Dashboard.objects.filter(olevel_students='1')
+    def get_queryset(self):
+        olevel_students=Dashboard.objects.filter(olevel_students='1')
+
+    def get(self, request, *args, **kwargs):
+        xnumber_of_students=Dashboard.objects.filter(number_of_students='1').count()
+        xnumber_of_teachers=Dashboard.objects.filter(number_of_teachers='1').count()
+
+        cursor = connection.cursor()
+        cursor_teachers = connection.cursor()
+        cursor_students = connection.cursor()
+
+        cursor_teachers.execute("SELECT  SUM(number_of_teachers) FROM api_dashboard")
+
+        cursor_students.execute("SELECT  SUM(number_of_students) FROM api_dashboard")
+
+        row_teachers = cursor_teachers.fetchall()  
+        row_students = cursor_students.fetchall() 
+
+        t=row_teachers.pop(0)
+        s=row_students.pop(0)
+
+        num_teachers = int(t[0])
+        num_students = int(s[0])
+        
+        data = {}
+        data['teachers'] =  num_teachers
+        data['students'] =  num_students
+        json_data = json.dumps(data)              
+
+
+        return HttpResponse(json_data)
 
